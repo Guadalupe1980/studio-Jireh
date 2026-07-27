@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import logoJireh from "../../assets/icon/logo-jireh.png";
 
 function Footer() {
   const navigate = useNavigate(); //para navegar al login
@@ -130,7 +129,7 @@ function Footer() {
       <section className="border-t border-gray-200 px-5 py-12">
         <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
           <img
-            src={logoJireh}
+            src="/logo-jireh.png"
             alt="Logo del Estudio de Belleza Jireh"
             className="h-auto w-44"
           />

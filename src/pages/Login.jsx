@@ -1,4 +1,4 @@
-import logoJireh from "../assets/icon/logo-jireh.png";
+
 
 function Login() {
   function handleSubmit(event) {
@@ -13,7 +13,7 @@ function Login() {
         {/* Encabezado */}
         <div className="px-6 pb-8 pt-7 text-center sm:px-8">
           <img
-            src={logoJireh}
+            src="/logo-jireh.png"
             alt="Logo del Estudio de Belleza Jireh"
             className="mx-auto h-auto w-44"
           />
