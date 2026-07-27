@@ -13,16 +13,16 @@ export const homeServices = [
       "Renueva tu estilo con cortes personalizados y peinados profesionales para cada ocasión.",
     services: ["Cortes para dama", "Peinados"],
     image: cortesPeinadosImage,
-    path: "/services",
+    path: "/cortesPeinados",
   },
   {
     id: 2,
-    title: "Coloración",
+    title: "Coloracion",
     description:
       "Transforma tu cabello con técnicas de color diseñadas especialmente para ti.",
     services: ["Tintes", "Diseño de color"],
     image: coloracionImage,
-    path: "/services",
+    path: "/coloracion",
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ export const homeServices = [
       "Realza tu belleza con extensiones de cabello y pestañas aplicadas profesionalmente.",
     services: ["Extensiones de pestañas"],
     image: extensionesImage,
-    path: "/services",
+    path: "/extensiones",
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ export const homeServices = [
       "Cuida, restaura y mejora la apariencia de tu cabello con tratamientos especializados.",
     services: ["Keratinas", "Botox capilar", "Alisados"],
     image: tratamientosImage,
-    path: "/services",
+    path: "/tratamientosCapilares",
   },
   {
     id: 5,
@@ -49,6 +49,6 @@ export const homeServices = [
       "Maquillaje profesional para eventos, celebraciones y ocasiones especiales.",
     services: ["Maquillaje profesional"],
     image: maquillajeImage,
-    path: "/services",
+    path: "/maquillaje",
   },
 ];

@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import logoJireh from "../../assets/icon/logo-jireh.png";
 
 function Footer() {
+  const navigate = useNavigate(); //para navegar al login
+
   // Dirección que se muestra como texto en el footer
   const address =
     "TAB / Jalpa de Méndez 138, El Río, 86203 Jalpa de Méndez, Tabasco";
@@ -10,7 +13,10 @@ function Footer() {
     "https://www.google.com/maps/embed?pb=!4v1784793950517!6m8!1m7!1s4jI6JDnFy4Ad5Cr8VZ1hKw!2m2!1d18.15221178470845!2d-93.05922439155826!3f270!4f0!5f0.7820865974627469https://www.google.com/maps/place//@18.151964,-93.0610091,50m/data=!3m1!1e3!4m6!1m5!3m4!2zMTjCsDA5JzA3LjQiTiA5M8KwMDMnMzguNiJX!8m2!3d18.15205!4d-93.0607224?hl=es&entry=ttu&g_ep=EgoyMDI2MDcyMi4wIKXMDSoASAFQAw%3D%3D";
 
   return (
-    <footer id="contact" className="scroll-mt-24 border-t border-gray-200 bg-[#f8f5f6]">
+    <footer
+      id="contact"
+      className="scroll-mt-24 border-t border-gray-200 bg-[#f8f5f6]"
+    >
       {/* Información de contacto y mapa */}
       <section className="mx-auto grid max-w-6xl gap-12 px-5 py-16 lg:grid-cols-2 lg:px-10">
         {/* Datos de contacto */}
@@ -139,7 +145,16 @@ function Footer() {
       {/* Derechos reservados */}
       <div className="border-t border-gray-200 px-5 py-6 text-center">
         <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500">
-          © 2026 Estudio Jireh. Todos los derechos reservados.
+          © 2026{" "}
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            className="cursor-default uppercase tracking-[0.3em] text-gray-500"
+            aria-label="Abrir inicio de sesión"
+          >
+            Estudio Jireh
+          </button>
+          . Todos los derechos reservados.
         </p>
       </div>
     </footer>

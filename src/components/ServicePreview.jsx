@@ -24,7 +24,7 @@ function ServicePreview() {
             <img
               src={service.image}
               alt={`Servicio de ${service.title}`}
-              className="h-64 w-full object-fill transition-transform duration-300 ease-in-out group-hover:scale-110"
+              className="h-64 w-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
             />
             <div className="flex flex-1 flex-col p-6">
               <h3 className="text-2xl font-serif font-medium text-rose-700">
@@ -35,9 +35,9 @@ function ServicePreview() {
                 {service.description}
               </p>
 
-              {/*Link de navegacion*/}
+              {/*Link de navegacion(button)*/}
               <LinkButton
-                to="/services"
+                to={service.path}
                 variant="outline" //LinkButton
                 className="mt-6 w-full px-5 py-3 text-sm font-medium"
               >

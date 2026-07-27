@@ -1,12 +1,14 @@
+import fotoAutora from "../assets/images/FotoAutora.webp"
+
 function AboutMe() {
   return (
-    <section className="min-h-screen bg-[#fbfaf8] px-4 py-10 sm:px-6 md:py-16">
+    <section className="min-h-screen bg-[#fbfaf8] px-4 py-10 sm:px-6 md:py-13">
       <article className="mx-auto max-w-md overflow-hidden rounded-md bg-white shadow-xl md:max-w-5xl">
         <div className="md:grid md:grid-cols-2">
           {/* Imagen */}
           <div className="relative min-h-75 overflow-hidden bg-rose-50 sm:min-h-95 md:min-h-full">
             <img
-              src="https://imgs.search.brave.com/Nz4wQNPeip0RcmAtHXBerwqEuSbdw23G3qBkNMVFyEk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zdC5k/ZXBvc2l0cGhvdG9z/LmNvbS8xNjQzMjk1/LzM2NzYvaS80NTAv/ZGVwb3NpdHBob3Rv/c18zNjc2MDQ3MS1z/dG9jay1waG90by1m/ZW1hbGUtc3R5bGlz/dC5qcGc"
+              src={fotoAutora}
               alt="Fundadora del Estudio de Belleza Jireh"
               className="absolute inset-0 h-full w-full object-cover object-center"
             />
@@ -28,26 +30,23 @@ function AboutMe() {
             {/* Título */}
             <h1 className="mt-5 font-serif text-[31px] leading-[1.1] text-rose-700 sm:text-4xl md:text-[42px]">
               El arte de la{" "}
-              <span className="block italic sm:inline">
-                belleza consciente
-              </span>
+              <span className="block italic sm:inline">belleza consciente</span>
             </h1>
 
             {/* Frase principal */}
             <blockquote className="mt-7 border-l border-rose-300 pl-4 font-serif text-[15px] italic leading-7 text-stone-500 sm:text-base">
-              “Mi misión es transformar la estética en un acto de amor propio,
-              fusionando técnicas de vanguardia con un enfoque holístico.”
+              “Mi misión es crear cambios que inspiren seguridad, renovación y
+              una forma única de expresar la personalidad de cada cliente.”
             </blockquote>
 
             {/* Descripción */}
             <p className="mt-7 text-sm leading-7 text-stone-600 sm:text-[15px]">
-              Como fundadora de{" "}
               <span className="font-semibold text-rose-700">
-                Estudio de Belleza Jireh
-              </span>
-              , he dedicado mi carrera a perfeccionar el equilibrio entre el
-              cuidado personal, las técnicas especializadas y el diseño
-              estético.
+                Estudio de Belleza Jireh{" "}
+              </span>{" "}
+              nació con el propósito de crear un espacio donde cada persona
+              pueda sentirse especial, segura y auténtica, disfrutando una
+              experiencia pensada para resaltar su belleza y estilo personal.
             </p>
 
             {/* Línea divisora */}
@@ -65,7 +64,7 @@ function AboutMe() {
                     ✓
                   </span>
 
-                  <span>Especialista en Cosmetología Avanzada</span>
+                  <span>Taller de automaquillaje profesional</span>
                 </li>
 
                 <li className="flex items-start gap-3 text-xs leading-5 text-stone-500 sm:text-sm">
@@ -73,7 +72,28 @@ function AboutMe() {
                     ✓
                   </span>
 
-                  <span>Máster en Micropigmentación y Visagismo</span>
+                  <span>Taller de kerabotox alisante</span>
+                </li>
+                <li className="flex items-start gap-3 text-xs leading-5 text-stone-500 sm:text-sm">
+                  <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-rose-500 text-[8px] text-rose-600">
+                    ✓
+                  </span>
+
+                  <span>Curso de peinado en casa Mac</span>
+                </li>
+                <li className="flex items-start gap-3 text-xs leading-5 text-stone-500 sm:text-sm">
+                  <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-rose-500 text-[8px] text-rose-600">
+                    ✓
+                  </span>
+
+                  <span>Certificado en diseño de cejas HD brown</span>
+                </li>
+                <li className="flex items-start gap-3 text-xs leading-5 text-stone-500 sm:text-sm">
+                  <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-rose-500 text-[8px] text-rose-600">
+                    ✓
+                  </span>
+
+                  <span>Diploma en corte de cabello para dama</span>
                 </li>
 
                 <li className="flex items-start gap-3 text-xs leading-5 text-stone-500 sm:text-sm">
