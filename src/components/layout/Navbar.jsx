@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import logoJireh from "../../assets/icon/logo-jireh.png"
 
 function Navbar() {
   const [menuOpen, setMenuopen] = useState(false);
@@ -33,7 +34,7 @@ function Navbar() {
   return (
     <header className="sticky top-0 left-0 z-50 flex w-full justify-between items-center shadow-md bg-[#fbfaf8] px-5 py-3 md:px-10">
       <img
-        src="/public/icon/logo-jireh.png"
+        src={logoJireh}
         alt="logo Jireh"
         className="h-auto w-43 md:w-50"
       />
