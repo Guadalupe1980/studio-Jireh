@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../utils/supabase";
+import { Link } from "react-router-dom";
 
 function DashboardAdmin() {
   const [categories, setCategories] = useState([]);
@@ -11,10 +12,11 @@ function DashboardAdmin() {
       setLoadingVisits(true);
       setVisitsError("");
 
+      //consulta a supabase
       const { data, error } = await supabase
         .from("service_categories")
         .select("id, name, slug, visits")
-        .order("visits", { ascending: false });
+        .order("visits", { ascending: false }); //Ordénalos de mayor número de visitas a menor.
 
       if (error) {
         console.error("Error al cargar las visitas:", error);
@@ -22,7 +24,7 @@ function DashboardAdmin() {
         setLoadingVisits(false);
         return;
       }
-
+      //Guarda los datos de las categorias de supabase
       setCategories(data || []);
       setLoadingVisits(false);
     }
@@ -30,15 +32,7 @@ function DashboardAdmin() {
     getCategoryVisits();
   }, []);
 
-  /*
-    Buscamos cuál categoría tiene más visitas.
-
-    Ejemplo:
-    Cortes = 120
-    Coloración = 80
-
-    maxVisits = 120
-  */
+  /*Buscamos cuál categoría tiene más visitas.*/
   const maxVisits = Math.max(
     ...categories.map((category) => category.visits || 0),
     1,
@@ -69,22 +63,26 @@ function DashboardAdmin() {
             </p>
 
             <span className="mt-2 block font-serif text-4xl font-semibold text-rose-700">
-              8
+              {categories.length}
             </span>
 
-            <div className="mt-10 flex items-center gap-1 text-xs font-medium text-rose-600">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 -960 960 960"
-                fill="currentColor"
-                className="h-4 w-4"
-                aria-hidden="true"
-              >
-                <path d="m120-240 240-240 160 160 280-320v200h80v-336H544v80h202L520-438 360-598 64-302l56 62Z" />
-              </svg>
-
-              <span>+2 este mes</span>
-            </div>
+            <Link
+              to={"/admin/services"}
+              className="mt-10 flex items-center gap-1 text-xs font-medium text-rose-600"
+            >
+              <span className="flex gap-2 justify-center items-center">
+                Ver servicios{" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="currentColor"
+                >
+                  <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z" />
+                </svg>
+              </span>
+            </Link>
 
             {/* Icono decorativo */}
             <svg
@@ -116,10 +114,10 @@ function DashboardAdmin() {
                 className="h-4 w-4"
                 aria-hidden="true"
               >
-                <path d="M720-440v-120h-80v120H520v80h120v120h80v-120h120v-80H720ZM360-480q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35ZM80-160v-80q0-83 58.5-141.5T280-440h160q31 0 59 9t52 25q-17 22-30 47t-21 52q-14-13-30-23t-34-17q-18-6-37-9.5t-39-3.5H280q-50 0-85 35t-35 85v0h346q11 22 26 42t34 38H80Z" />
+                <path d="m120-240 240-240 160 160 280-320v200h80v-336H544v80h202L520-438 360-598 64-302l56 62Z" />
               </svg>
 
-              <span>Alcance de 1.2k clientes</span>
+              <span>+2 este mes</span>
             </div>
 
             {/* Icono decorativo */}
@@ -209,7 +207,7 @@ function DashboardAdmin() {
 
                 return (
                   <div key={category.id}>
-                    {/* Nombre y cantidad */}
+                    {/* Nombre y visitas */}
                     <div className="mb-2 flex items-center justify-between gap-4">
                       <span className="text-sm font-medium text-slate-700">
                         {category.name}
@@ -221,14 +219,20 @@ function DashboardAdmin() {
                       </span>
                     </div>
 
-                    {/* Barra */}
-                    <div className="h-3 w-full overflow-hidden rounded-full bg-rose-100">
-                      <div
-                        className="h-full rounded-full bg-rose-700 transition-all duration-700"
-                        style={{
-                          width: `${percentage}%`,
-                        }}
-                      ></div>
+                    {/* Barra y porcentaje */}
+                    <div className="flex items-center gap-3">
+                      <div className="h-3 flex-1 overflow-hidden rounded-full bg-rose-100">
+                        <div
+                          className="h-full rounded-full bg-rose-700 transition-all duration-700"
+                          style={{
+                            width: `${percentage}%`,
+                          }}
+                        ></div>
+                      </div>
+
+                      <span className="w-12 text-right text-xs font-semibold text-rose-700">
+                        {percentage.toFixed(1)}%
+                      </span>
                     </div>
                   </div>
                 );

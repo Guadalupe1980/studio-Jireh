@@ -1,3 +1,4 @@
+import LinkButton from "../ui/LinkButton";
 
 
 function Login() {
@@ -8,7 +9,7 @@ function Login() {
   }
 
   return (
-    <section className="min-h-screen bg-[#f8f5f6] px-4 py-10 sm:py-3">
+    <section className="min-h-screen bg-[#f8f5f6] px-4 py-10 mt-5 sm:py-3">
       <div className="mx-auto max-w-sm overflow-hidden rounded-[28px] border border-rose-100 bg-white shadow-[0_20px_60px_rgba(93,56,68,0.15)]">
         {/* Encabezado */}
         <div className="px-6 pb-8 pt-7 text-center sm:px-8">
@@ -92,8 +93,8 @@ function Login() {
           </div>
 
           {/* Botón */}
-          <button
-            type="submit"
+          <LinkButton
+            to={"/admin"}
             className="
               mt-8 w-full rounded-md bg-rose-700 px-5 py-4
               text-xs font-bold uppercase tracking-[0.14em] text-white
@@ -103,7 +104,7 @@ function Login() {
             "
           >
             Login to portal
-          </button>
+          </LinkButton>
 
           {/* Texto inferior */}
           <div className="mt-6 border-t border-gray-200 pt-5 text-center">
