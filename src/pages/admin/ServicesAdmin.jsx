@@ -1,7 +1,6 @@
 {
   /*Esta página será la que junte y controle todo tu CRUD de servicios*/
 }
-import CreateServicio from "../../components/admin/services/CreateServicio";
 import ReadServicio from "../../components/admin/services/ReadServicio";
 
 function ServicesAdmin() {
@@ -9,7 +8,6 @@ function ServicesAdmin() {
     <>
       <main>
         <ReadServicio />
-        <CreateServicio />
       </main>
     </>
   );
