@@ -14,6 +14,7 @@ function LinkButton({
   newTab = false,
   variant = "primary",
   className = "",
+  onClick,
 }) {
   const styles = `
     flex
@@ -31,7 +32,7 @@ function LinkButton({
   // Navegación interna
   if (to) {
     return (
-      <Link to={to} className={styles}>
+      <Link to={to} onClick={onClick} className={styles}>
         {children}
       </Link>
     );

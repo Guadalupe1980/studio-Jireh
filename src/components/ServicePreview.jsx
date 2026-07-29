@@ -1,7 +1,18 @@
 import LinkButton from "../ui/LinkButton";
 import { homeServices } from "../data/homeServices";
+import { supabase } from "../utils/supabase";
 
 function ServicePreview() {
+  //función del clic para el diagrama
+  async function handleServiceVisit(categoryId) {
+    const { error } = await supabase.rpc("increment_category_visit", {
+      category_id_param: categoryId,
+    });
+    if (error) {
+      console.error("Error al registrar visita", error);
+    }
+  }
+
   return (
     <section id="services" className="scroll-mt-24 bg-[#f8f5f6] px-5 py-14">
       <div className="text-center">
@@ -38,6 +49,7 @@ function ServicePreview() {
               {/*Link de navegacion(button)*/}
               <LinkButton
                 to={service.path}
+                onClick={() => handleServiceVisit(service.categoryId)}
                 variant="outline" //LinkButton
                 className="mt-6 w-full px-5 py-3 text-sm font-medium"
               >

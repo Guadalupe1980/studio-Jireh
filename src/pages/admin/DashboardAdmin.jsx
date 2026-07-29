@@ -1,4 +1,49 @@
+import { useEffect, useState } from "react";
+import { supabase } from "../../utils/supabase";
+
 function DashboardAdmin() {
+  const [categories, setCategories] = useState([]);
+  const [loadingVisits, setLoadingVisits] = useState(true);
+  const [visitsError, setVisitsError] = useState("");
+
+  useEffect(() => {
+    async function getCategoryVisits() {
+      setLoadingVisits(true);
+      setVisitsError("");
+
+      const { data, error } = await supabase
+        .from("service_categories")
+        .select("id, name, slug, visits")
+        .order("visits", { ascending: false });
+
+      if (error) {
+        console.error("Error al cargar las visitas:", error);
+        setVisitsError("No se pudieron cargar las estadísticas.");
+        setLoadingVisits(false);
+        return;
+      }
+
+      setCategories(data || []);
+      setLoadingVisits(false);
+    }
+
+    getCategoryVisits();
+  }, []);
+
+  /*
+    Buscamos cuál categoría tiene más visitas.
+
+    Ejemplo:
+    Cortes = 120
+    Coloración = 80
+
+    maxVisits = 120
+  */
+  const maxVisits = Math.max(
+    ...categories.map((category) => category.visits || 0),
+    1,
+  );
+
   return (
     <main className="min-h-screen bg-[#fbfaf8] px-5 py-10">
       <div className="mx-auto max-w-6xl">
@@ -44,9 +89,7 @@ function DashboardAdmin() {
             {/* Icono decorativo */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="24px"
               viewBox="0 -960 960 960"
-              width="24px"
               fill="currentColor"
               className="absolute -bottom-1 -right-2 h-28 w-28 text-rose-100"
               aria-hidden="true"
@@ -82,14 +125,12 @@ function DashboardAdmin() {
             {/* Icono decorativo */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="24px"
               viewBox="0 -960 960 960"
-              width="24px"
               fill="currentColor"
               className="absolute -bottom-4 -right-4 h-28 w-28 text-white/10"
               aria-hidden="true"
             >
-              <path d="M856-390 570-104q-12 12-27 18t-30 6q-15 0-30-6t-27-18L103-457q-11-11-17-25.5T80-513v-287q0-33 23.5-56.5T160-880h287q16 0 31 6.5t26 17.5l352 353q12 12 17.5 27t5.5 30q0 15-5.5 29.5T856-390ZM513-160l286-286-353-354H160v286l353 354ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Zm220 160Z" />
+              <path d="M856-390 570-104q-12 12-27 18t-30 6q-15 0-30-6t-27-18L103-457q-11-11-17-25.5T80-513v-287q0-33 23.5-56.5T160-880h287q16 0 31 6.5t26 17.5l352 353q12 12 17.5 27t5.5 30q0 15-5.5 29.5T856-390ZM513-160l286-286-353-354H160v286l353 354ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Z" />
             </svg>
           </article>
 
@@ -100,7 +141,6 @@ function DashboardAdmin() {
             </p>
 
             <div className="mt-6 space-y-6">
-              {/* Actividad 1 */}
               <div className="flex gap-3">
                 <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-rose-600"></span>
 
@@ -115,7 +155,6 @@ function DashboardAdmin() {
                 </div>
               </div>
 
-              {/* Actividad 2 */}
               <div className="flex gap-3">
                 <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-slate-500"></span>
 
@@ -132,6 +171,71 @@ function DashboardAdmin() {
             </div>
           </article>
         </section>
+
+        {/* Servicios más visitados */}
+        <article className="mt-5 border border-rose-200 bg-white p-6 md:p-8">
+          <div className="mb-8">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600">
+              Servicios más visitados
+            </p>
+
+            <p className="mt-2 text-sm text-slate-400">
+              Categorías con mayor número de visitas de los clientes.
+            </p>
+          </div>
+
+          {/* Cargando datos */}
+          {loadingVisits && (
+            <p className="text-sm text-slate-400">Cargando estadísticas...</p>
+          )}
+
+          {/* Error */}
+          {!loadingVisits && visitsError && (
+            <p className="text-sm text-red-500">{visitsError}</p>
+          )}
+
+          {/* Sin información */}
+          {!loadingVisits && !visitsError && categories.length === 0 && (
+            <p className="text-sm text-slate-400">
+              No hay información de visitas disponible.
+            </p>
+          )}
+
+          {/* Gráfica */}
+          {!loadingVisits && !visitsError && categories.length > 0 && (
+            <div className="space-y-7">
+              {categories.map((category) => {
+                const percentage = (category.visits / maxVisits) * 100;
+
+                return (
+                  <div key={category.id}>
+                    {/* Nombre y cantidad */}
+                    <div className="mb-2 flex items-center justify-between gap-4">
+                      <span className="text-sm font-medium text-slate-700">
+                        {category.name}
+                      </span>
+
+                      <span className="text-xs font-semibold text-rose-700">
+                        {category.visits}{" "}
+                        {category.visits === 1 ? "visita" : "visitas"}
+                      </span>
+                    </div>
+
+                    {/* Barra */}
+                    <div className="h-3 w-full overflow-hidden rounded-full bg-rose-100">
+                      <div
+                        className="h-full rounded-full bg-rose-700 transition-all duration-700"
+                        style={{
+                          width: `${percentage}%`,
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </article>
       </div>
     </main>
   );
