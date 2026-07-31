@@ -17,9 +17,33 @@ function CreateServicio() {
     description: "",
     duration_minutes: "",
     price: "",
-    image_url: "",
     active: true,
   });
+
+  {
+    /*Estado para guardar el archivo seleccionado*/
+  }
+  const [image, setImage] = useState(null);
+  const [imageError, setImageError] = useState(""); //mostrar un mensaje si no es una imagen.
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    //se verifica que es una imagen
+    if (!file.type.startsWith("image/")) {
+      setImage(null);
+      setImageError("Este archivo no es permitido. Selecciona una imagen");
+      e.target.value = "";
+      return;
+    }
+
+    setImage(file);
+    setImageError("");
+  }
 
   {
     /*Traer las categorías*/
@@ -61,13 +85,53 @@ function CreateServicio() {
     setLoading(true);
     setErrorMessage("");
 
+    if (!image) {
+      setErrorMessage("Selecciona una imagen");
+      setLoading(false);
+      return;
+    }
+
+    //obtener extencion del archivo
+    const fileExtension = image.name.split(".").pop();
+
+    //crear nombre unico
+    const fileName = `${Date.now()}.${fileExtension}`;
+
+    //se crea la ruta dentro del bucket
+    const filePath = `services/${fileName}`;
+
+    //subir la imagen al storage
+    const { error: uploadError } = await supabase.storage
+      .from("studioJireh")
+      .upload(filePath, image, {
+        cacheControl: "3600",
+        upsert: false,
+        contentType: image.type,
+      });
+
+    if (uploadError) {
+      console.error("Error al subir la imagen:", uploadError);
+
+      setErrorMessage("No se pudo subir la imagen");
+      setLoading(false);
+      return;
+    }
+
+    //Obtenemos la URL publica
+    const { data: publicUrlData } = supabase.storage
+      .from("studioJireh")
+      .getPublicUrl(filePath);
+
+    const imageUrl = publicUrlData.publicUrl;
+
+    //creamos el servicio
     const { error } = await supabase.from("services").insert({
       category_id: Number(form.category_id),
       name: form.name,
       description: form.description,
       duration_minutes: Number(form.duration_minutes),
       price: Number(form.price),
-      image_url: form.image_url,
+      image_url: imageUrl,
       active: form.active,
     });
 
@@ -236,24 +300,34 @@ function CreateServicio() {
               </div>
             </div>
 
-            {/* URL imagen */}
+            {/* imagen */}
             <div className="sm:col-span-2">
+              <label className="mb-2 block text-sm font-medium text-slate-600">
+                Imagen del servicio
+              </label>
+
               <label
-                htmlFor="image_url"
-                className="mb-2 block text-sm font-medium text-slate-600"
+                htmlFor="image"
+                className="flex cursor-pointer items-center justify-between rounded-lg border border-rose-200 bg-white px-4 py-3 text-sm text-slate-600 transition hover:bg-rose-50"
               >
-                URL de imagen
+                <span>{image ? image.name : "Seleccionar imagen"}</span>
+
+                <span className="rounded-md bg-rose-100 px-4 py-2 text-xs font-medium text-rose-700">
+                  Examinar
+                </span>
               </label>
 
               <input
-                id="image_url"
-                type="text"
-                name="image_url"
-                value={form.image_url}
-                onChange={handleChange}
-                placeholder="https://..."
-                className="w-full rounded-lg border border-rose-200 px-4 py-3 text-sm text-slate-600 outline-none transition placeholder:text-slate-300 focus:border-rose-500 focus:ring-2 focus:ring-rose-100"
+                id="image"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
               />
+
+              {imageError && (
+                <p className="mt-2 text-sm text-red-500">{imageError}</p>
+              )}
             </div>
           </div>
 

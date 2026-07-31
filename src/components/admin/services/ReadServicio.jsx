@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../../../utils/supabase";
 import LinkButton from "../../../ui/LinkButton";
+import { Link } from "react-router-dom";
 
 function ReadServicio() {
   const [services, setServices] = useState([]); //guarda todos los servicios de Supabase
@@ -229,8 +230,8 @@ function ReadServicio() {
 
               {/* Botones */}
               <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
+                <Link
+                 to={"/admin/services/update"}
                   className="flex items-center justify-center gap-2 rounded-lg border border-rose-200 px-4 py-2.5 text-sm font-medium text-rose-700 transition hover:bg-rose-50"
                 >
                   <svg
@@ -242,7 +243,7 @@ function ReadServicio() {
                     <path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-12 26.5-17.5T705-840q16 0 31 6t27 18l55 56q12 11 17 26t5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Z" />
                   </svg>
                   Editar
-                </button>
+                </Link>
 
                 <button
                   type="button"
