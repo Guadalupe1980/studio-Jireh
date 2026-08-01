@@ -1,8 +1,37 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { useContext } from "react";
 
 function AdminNavbar() {
+  const navigate = useNavigate();
+  const { logout } = useContext(AuthContext)
+
   const [Openmenu, setOpenmenu] = useState(false); //Estado del menu
+  const [loggingOut, setLoggingOut] = useState(false)
+
+  async function handleLogout() {
+    setLoggingOut(true)
+
+    try {
+      //cerramos la sesion en supabase
+      await logout();
+
+      //cerramos el menu movil
+      setOpenmenu(false)
+
+      //mandamos el usuario al login
+      navigate("/login", {replace: true});
+    } catch (error) {
+      console.error("Error al cerrar sesion:", error);
+      setLoggingOut(false)
+    }
+    
+  }
+
+  function closeMenu(){
+    setOpenmenu(false);
+  }
 
   return (
     <header className="sticky top-0 left-0 z-50 flex w-full justify-between items-center shadow-md bg-[#fbfaf8] px-5 py-3 md:px-10">
@@ -15,7 +44,7 @@ function AdminNavbar() {
       {/*Boton del menu falso/true*/}
       <button
         type="button"
-        onClick={() => setOpenmenu(!Openmenu)}
+        onClick={() => setOpenmenu((previous) => !previous)}
         className="flex h-10 w-10 items-center justify-center rounded-md text-gray-800 transition border border-gray-300 hover:bg-gray-300 lg:hidden"
       >
         <svg
@@ -37,6 +66,7 @@ function AdminNavbar() {
       >
         <Link
           to={"/admin"}
+          onClick={closeMenu}
           className="hover:scale-110 duration-300 md:hover:text-rose-700"
         >
           Dashboard
@@ -49,21 +79,25 @@ function AdminNavbar() {
         </Link>
         <Link
           to={"/admin/promotions"}
+          onClick={closeMenu}
           className="hover:scale-110 duration-300 md:hover:text-rose-700"
         >
           Promociones
         </Link>
         <Link
           to={""}
+          onClick={closeMenu}
           className="hover:scale-110 duration-300 md:hover:text-rose-700"
         >
           Configuración
         </Link>
         <Link
           to={""}
+          onClick={handleLogout}
+          disabled={loggingOut}
           className="hover:scale-110 duration-300 md:hover:text-rose-700"
         >
-          Cerrar sesión
+         {loggingOut ? "Cerrando sesión..." : "Cerrar sesión" }
         </Link>
       </nav>
     </header>

@@ -1,16 +1,38 @@
-import LinkButton from "../ui/LinkButton";
-
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
 
 function Login() {
-  function handleSubmit(event) {
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    // Aquí irá posteriormente la función para iniciar sesión
+    setLoading(true);
+    setErrorMessage("");
+
+    try {
+      await login(email, password);
+
+      navigate("/admin");
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error);
+
+      setErrorMessage("Correo o contraseña incorrectos.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
     <section className="min-h-screen bg-[#f8f5f6] px-4 py-10 sm:py-3">
-      <div className="mx-auto max-w-sm overflow-hidden rounded-[28px] border border-rose-100 bg-white shadow-[0_20px_60px_rgba(93,56,68,0.15)]">
+      <div className="mx-auto max-w-sm mt-10 overflow-hidden rounded-[28px] border border-rose-100 bg-white shadow-[0_20px_60px_rgba(93,56,68,0.15)]">
         {/* Encabezado */}
         <div className="px-6 pb-8 pt-7 text-center sm:px-8">
           <img
@@ -46,6 +68,8 @@ function Login() {
               type="email"
               name="email"
               id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="autora@jirehbeauty.com"
               autoComplete="email"
               required
@@ -80,6 +104,8 @@ function Login() {
               type="password"
               name="password"
               id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
               autoComplete="current-password"
               required
@@ -92,9 +118,16 @@ function Login() {
             />
           </div>
 
+          {errorMessage && (
+            <p className="mt-4 text-center text-sm text-red-500">
+              {errorMessage}
+            </p>
+          )}
+
           {/* Botón */}
-          <LinkButton
-            to={"/admin"}
+          <button
+            type="submit"
+            disabled={loading}
             className="
               mt-8 w-full rounded-md bg-rose-700 px-5 py-4
               text-xs font-bold uppercase tracking-[0.14em] text-white
@@ -103,8 +136,8 @@ function Login() {
               active:translate-y-0
             "
           >
-            Login to portal
-          </LinkButton>
+            {loading ? "Iniciando Sesion" : "Login to portal"}
+          </button>
 
           {/* Texto inferior */}
           <div className="mt-6 border-t border-gray-200 pt-5 text-center">

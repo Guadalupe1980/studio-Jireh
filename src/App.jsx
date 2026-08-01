@@ -19,10 +19,14 @@ import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import CreateServicio from "./components/admin/services/CreateServicio";
 import UpdateServicio from "./components/admin/services/UpdateServicio";
 
+import { AuthProvider } from "./contexts/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
   return (
     <>
     {/* Outlet: es el espacio donde React Router muestra el componente correspondiente a la ruta que abrió el usuario. */}
+     <AuthProvider>
       <Routes>
         {/* Página pública */}
         <Route element={ <> <Navbar /> <main> <Outlet /> </main> </> } >
@@ -40,6 +44,7 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Administración */}
+        <Route element={<ProtectedRoute />}> 
         <Route element={ <> <AdminNavbar /> <main> <Outlet /> </main></> }>
           <Route path="/admin" element={<DashboardAdmin />} />
           <Route path="/admin/services" element={<ServicesAdmin />}></Route>
@@ -47,7 +52,9 @@ function App() {
           <Route path="/admin/services/update" element={<UpdateServicio />}></Route>
           <Route path="/admin/promotions" element={<PromotionsAdmin />}></Route>
         </Route>
+        </Route>
       </Routes>
+      </AuthProvider>
     </>
   );
 }
