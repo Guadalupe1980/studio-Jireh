@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
+import { supabase } from "../utils/supabase";
 
 function Login() {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("")
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -29,6 +31,36 @@ function Login() {
       setLoading(false);
     }
   }
+
+  {/*Funcion derecuperacion de contraseña*/}
+  async function handleForgotPassword() {
+    setErrorMessage("")
+    setSuccessMessage("")
+
+    if(!email.trim()) {
+      setErrorMessage("Escribe el correo electronico antes de continuar");
+      return;
+    }
+    setLoading(true);
+    
+    const { error }= await supabase.auth.resetPasswordForEmail(email.trim(),
+    {
+      redirectTo: `${window.location.origin}/login/updatepassword`
+    },
+  );
+
+  if(error) {
+    console.error("Error al enviar el correo de recuperacion", error);    
+    setErrorMessage("No se puede enviar el corrreo de recuperacion");
+  
+    setLoading(false);
+    return;
+  }
+    setSuccessMessage("Revisa tu correo. Te enviamos un enlace para cambiar tu contraseña");
+    setLoading(false)
+
+  }
+
 
   return (
     <section className="min-h-screen bg-[#f8f5f6] px-4 py-10 sm:py-3">
@@ -82,7 +114,7 @@ function Login() {
             />
           </div>
 
-          {/* Contraseña */}
+          {/*olvide Contraseña */}
           <div className="mt-6">
             <div className="flex items-center justify-between gap-4">
               <label
@@ -94,9 +126,11 @@ function Login() {
 
               <button
                 type="button"
+                onClick={handleForgotPassword}
+                disabled={loading}
                 className="text-[10px] font-medium text-gray-500 transition hover:text-rose-700"
               >
-                Forgot password?
+                {loading ? "Enviando..." : "Forgot password"}
               </button>
             </div>
 
@@ -119,9 +153,15 @@ function Login() {
           </div>
 
           {errorMessage && (
-            <p className="mt-4 text-center text-sm text-red-500">
-              {errorMessage}
-            </p>
+              <p className="mt-4 text-center text-sm font-medium text-red-500">
+                {errorMessage}
+              </p>
+          )}
+
+          {successMessage && (
+              <p className="mt-4 text-center text-sm font-medium text-green-600">
+                {successMessage}
+              </p>
           )}
 
           {/* Botón */}

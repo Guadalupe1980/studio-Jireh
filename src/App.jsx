@@ -12,21 +12,20 @@ import Extensiones from "./pages/Extensiones";
 import TratamientosCapilares from "./pages/TratamientosCapilares";
 import Maquillaje from "./pages/Maquillaje";
 //Rutas de admin
-import Login from "./pages/Login";
 import ServicesAdmin from "./pages/admin/ServicesAdmin";
 import PromotionsAdmin from "./pages/admin/PromotionsAdmin";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import CreateServicio from "./components/admin/services/CreateServicio";
 import UpdateServicio from "./components/admin/services/UpdateServicio";
-
-import { AuthProvider } from "./contexts/AuthContext";
+// Autenticación
+import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
+import UpdatePassword from "./pages/UpdatePassword";
 
 function App() {
   return (
     <>
     {/* Outlet: es el espacio donde React Router muestra el componente correspondiente a la ruta que abrió el usuario. */}
-     <AuthProvider>
       <Routes>
         {/* Página pública */}
         <Route element={ <> <Navbar /> <main> <Outlet /> </main> </> } >
@@ -42,6 +41,7 @@ function App() {
 
         {/* Login */}
         <Route path="/login" element={<Login />} />
+        <Route path="/login/updatepassword" element={<UpdatePassword />}></Route>
 
         {/* Administración */}
         <Route element={<ProtectedRoute />}> 
@@ -54,7 +54,6 @@ function App() {
         </Route>
         </Route>
       </Routes>
-      </AuthProvider>
     </>
   );
 }

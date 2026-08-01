@@ -5,10 +5,10 @@ import { supabase } from "../utils/supabase";
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(null); //Indica si existe un usuario autenticado.
   const [loading, setLoading] = useState(true);
 
-  //Iniciar Sesion
+  //Iniciar Sesion (manda los datos a supabase)
   async function login(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -23,7 +23,7 @@ function AuthProvider({ children }) {
     return data.user;
   }
 
-  //Cerrar Sesion
+  //Cerrar Sesion activa
   async function logout() {
     const { error } = await supabase.auth.signOut({
         scope: "local"
@@ -48,9 +48,11 @@ function AuthProvider({ children }) {
     };
   }, []);
 
+  //se comparten todos los valores
   const value ={user, login, logout, loading}
+
   return (
-    <AuthContext.Provider value={value}> {children}</AuthContext.Provider>);
+    <AuthContext.Provider value={value}>{children}</AuthContext.Provider>);
 }
 
 export {AuthContext, AuthProvider}
