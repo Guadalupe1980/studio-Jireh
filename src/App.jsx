@@ -17,6 +17,7 @@ import PromotionsAdmin from "./pages/admin/PromotionsAdmin";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import CreateServicio from "./components/admin/services/CreateServicio";
 import UpdateServicio from "./components/admin/services/UpdateServicio";
+import DeleteServicio from "./components/admin/services/DeleteServicio";
 // Autenticación
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -49,7 +50,8 @@ function App() {
           <Route path="/admin" element={<DashboardAdmin />} />
           <Route path="/admin/services" element={<ServicesAdmin />}></Route>
           <Route path="/admin/services/create" element={<CreateServicio />}></Route>
-          <Route path="/admin/services/update" element={<UpdateServicio />}></Route>
+          <Route path="/admin/services/update/:id" element={<UpdateServicio />}></Route>
+          <Route path="/admin/services/delete/:id" element={<DeleteServicio />}></Route>
           <Route path="/admin/promotions" element={<PromotionsAdmin />}></Route>
         </Route>
         </Route>

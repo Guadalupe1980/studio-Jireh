@@ -231,7 +231,7 @@ function ReadServicio() {
               {/* Botones */}
               <div className="grid grid-cols-2 gap-3">
                 <Link
-                 to={"/admin/services/update"}
+                 to={`/admin/services/update/${service.id}`}
                   className="flex items-center justify-center gap-2 rounded-lg border border-rose-200 px-4 py-2.5 text-sm font-medium text-rose-700 transition hover:bg-rose-50"
                 >
                   <svg
@@ -245,8 +245,8 @@ function ReadServicio() {
                   Editar
                 </Link>
 
-                <button
-                  type="button"
+                <Link
+                  to={`/admin/services/delete/${service.id}`}
                   className="flex items-center justify-center gap-2 rounded-lg border border-red-200 px-4 py-2.5 text-sm font-medium text-red-500 transition hover:bg-red-50"
                 >
                   <svg
@@ -258,7 +258,7 @@ function ReadServicio() {
                     <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360Z" />
                   </svg>
                   Eliminar
-                </button>
+                </Link>
               </div>
             </div>
           </article>
