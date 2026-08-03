@@ -11,13 +11,19 @@ import Coloracion from "./pages/Coloracion";
 import Extensiones from "./pages/Extensiones";
 import TratamientosCapilares from "./pages/TratamientosCapilares";
 import Maquillaje from "./pages/Maquillaje";
-//Rutas de admin
+//Rutas de admin servicio
 import ServicesAdmin from "./pages/admin/ServicesAdmin";
 import PromotionsAdmin from "./pages/admin/PromotionsAdmin";
 import DashboardAdmin from "./pages/admin/DashboardAdmin";
 import CreateServicio from "./components/admin/services/CreateServicio";
 import UpdateServicio from "./components/admin/services/UpdateServicio";
 import DeleteServicio from "./components/admin/services/DeleteServicio";
+
+//Rutas de admin promociones
+import CreatePromotion from "./components/admin/promotions/CreatePromotion";
+import UpdatePromotion from "./components/admin/promotions/UpdatePromotion";
+import DeletePromotion from "./components/admin/promotions/DeletePromotion";
+
 // Autenticación
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -53,6 +59,9 @@ function App() {
           <Route path="/admin/services/update/:id" element={<UpdateServicio />}></Route>
           <Route path="/admin/services/delete/:id" element={<DeleteServicio />}></Route>
           <Route path="/admin/promotions" element={<PromotionsAdmin />}></Route>
+          <Route path="/admin/promotions/create" element={<CreatePromotion />}></Route>
+          <Route path="/admin/promotions/update/:id" element={<UpdatePromotion />}></Route>
+          <Route path="/admin/promotions/delete/:id" element={<DeletePromotion />}></Route>
         </Route>
         </Route>
       </Routes>

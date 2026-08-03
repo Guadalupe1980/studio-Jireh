@@ -55,7 +55,7 @@ function DashboardAdmin() {
         </section>
 
         {/* Métricas */}
-        <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <section className="grid gap-5 md:grid-cols-2 lg:grid-cols-2">
           {/* Servicios totales */}
           <article className="relative min-h-48 overflow-hidden border border-rose-200 bg-white p-8 transition duration-300 hover:-translate-y-1 hover:shadow-lg">
             <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600">
@@ -130,43 +130,6 @@ function DashboardAdmin() {
             >
               <path d="M856-390 570-104q-12 12-27 18t-30 6q-15 0-30-6t-27-18L103-457q-11-11-17-25.5T80-513v-287q0-33 23.5-56.5T160-880h287q16 0 31 6.5t26 17.5l352 353q12 12 17.5 27t5.5 30q0 15-5.5 29.5T856-390ZM513-160l286-286-353-354H160v286l353 354ZM260-640q25 0 42.5-17.5T320-700q0-25-17.5-42.5T260-760q-25 0-42.5 17.5T200-700q0 25 17.5 42.5T260-640Z" />
             </svg>
-          </article>
-
-          {/* Actividad reciente */}
-          <article className="border border-rose-300 bg-white p-8 md:col-span-2 lg:col-span-1">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-slate-600">
-              Actividad reciente
-            </p>
-
-            <div className="mt-6 space-y-6">
-              <div className="flex gap-3">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-rose-600"></span>
-
-                <div>
-                  <p className="text-sm font-medium text-slate-700">
-                    Make-up Editorial actualizado
-                  </p>
-
-                  <span className="mt-1 block text-[10px] text-slate-400">
-                    Hace 2 horas
-                  </span>
-                </div>
-              </div>
-
-              <div className="flex gap-3">
-                <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-slate-500"></span>
-
-                <div>
-                  <p className="text-sm font-medium text-slate-700">
-                    Nueva promo "Summer Glow"
-                  </p>
-
-                  <span className="mt-1 block text-[10px] text-slate-400">
-                    Ayer
-                  </span>
-                </div>
-              </div>
-            </div>
           </article>
         </section>
 
