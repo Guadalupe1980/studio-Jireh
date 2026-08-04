@@ -6,30 +6,62 @@ function DashboardAdmin() {
   const [categories, setCategories] = useState([]);
   const [loadingVisits, setLoadingVisits] = useState(true);
   const [visitsError, setVisitsError] = useState("");
+  const [activePromotions, setActivePromotions] = useState(0);
+  const [loadingPromotions, setLoadingPromotions] = useState(true);
+  const [promotionsError, setPromotionsError] = useState("");
 
   useEffect(() => {
-    async function getCategoryVisits() {
+    async function getDashboardData() {
       setLoadingVisits(true);
+      setLoadingPromotions(true);
+
       setVisitsError("");
+      setPromotionsError("");
 
       //consulta a supabase
-      const { data, error } = await supabase
-        .from("service_categories")
-        .select("id, name, slug, visits")
-        .order("visits", { ascending: false }); //Ordénalos de mayor número de visitas a menor.
+      const [categoriesResponse, promotionsResponse] = await Promise.all([
+        supabase
+          .from("service_categories")
+          .select("id, name, slug, visits")
+          .order("visits", {
+            ascending: false,
+          }),
 
-      if (error) {
-        console.error("Error al cargar las visitas:", error);
+        supabase
+          .from("promotions")
+          .select("*", {
+            count: "exact",
+            head: true,
+          })
+          .eq("active", true)
+      ]);
+
+      // Revisar consulta de categorías
+      if (categoriesResponse.error) {
+        console.error("Error al cargar las visitas:", categoriesResponse.error);
+
         setVisitsError("No se pudieron cargar las estadísticas.");
-        setLoadingVisits(false);
-        return;
+      } else {
+        setCategories(categoriesResponse.data || []);
       }
-      //Guarda los datos de las categorias de supabase
-      setCategories(data || []);
+
+      // Revisar consulta de promociones
+      if (promotionsResponse.error) {
+        console.error(
+          "Error al contar las promociones:",
+          promotionsResponse.error,
+        );
+
+        setPromotionsError("No se pudieron cargar las promociones.");
+      } else {
+        setActivePromotions(promotionsResponse.count ?? 0);
+      }
+
       setLoadingVisits(false);
+      setLoadingPromotions(false);
     }
 
-    getCategoryVisits();
+    getDashboardData();
   }, []);
 
   /*Buscamos cuál categoría tiene más visitas.*/
@@ -103,22 +135,30 @@ function DashboardAdmin() {
             </p>
 
             <span className="mt-2 block font-serif text-4xl font-semibold">
-              5
+              {loadingPromotions ? "..." : activePromotions}
             </span>
 
-            <div className="mt-10 flex items-center gap-1 text-xs font-medium text-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 -960 960 960"
-                fill="currentColor"
-                className="h-4 w-4"
-                aria-hidden="true"
-              >
-                <path d="m120-240 240-240 160 160 280-320v200h80v-336H544v80h202L520-438 360-598 64-302l56 62Z" />
-              </svg>
+            {!loadingPromotions && promotionsError && (
+              <p className="mt-2 text-xs text-white/80">{promotionsError}</p>
+            )}
 
-              <span>+2 este mes</span>
-            </div>
+            <Link
+              to={"/admin/promotions"}
+              className="mt-10 flex items-center gap-1 text-xs font-medium text-white"
+            >
+              <span className="flex gap-2 justify-center items-center">
+                Ver promociones{" "}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="24px"
+                  viewBox="0 -960 960 960"
+                  width="24px"
+                  fill="currentColor"
+                >
+                  <path d="m560-240-56-58 142-142H160v-80h486L504-662l56-58 240 240-240 240Z" />
+                </svg>
+              </span>
+            </Link>
 
             {/* Icono decorativo */}
             <svg

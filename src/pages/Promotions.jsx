@@ -59,7 +59,6 @@ function Promotions() {
 
       if (error) {
         console.error("Error al cargar las promociones:", error);
-
         setErrorMessage("No se pudieron cargar las promociones.");
 
         setLoading(false);
