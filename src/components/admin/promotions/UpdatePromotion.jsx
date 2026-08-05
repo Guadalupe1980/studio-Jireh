@@ -1,7 +1,16 @@
 
 function UpdatePromotion() {
   return (
-    <div>UpdatePromotion</div>
+    <>
+      <section>
+        <div>
+          <span>Administracion</span>
+          <h1>Actualizar Promocion</h1>
+          <p>Modifica la información de la promocion seleccionada.</p>
+        </div>
+      </section>
+    
+    </>
   )
 }
 
