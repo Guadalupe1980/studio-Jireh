@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import HeroSection from "../components/HeroSection";
 import ServicePreview from "../components/ServicePreview";
 import Footer from "../components/layout/Footer";
+import FloatingWhatsApp from "../components/ui/FloatingWhatsApp";
 
 function Home() {
   const location = useLocation();
@@ -39,6 +40,7 @@ function Home() {
     <>
       <HeroSection />
       <ServicePreview />
+      <FloatingWhatsApp />
       <Footer />
     </>
   );
