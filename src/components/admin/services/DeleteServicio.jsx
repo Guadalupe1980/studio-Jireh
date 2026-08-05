@@ -119,7 +119,7 @@ function DeleteServicio() {
         <div className="text-center">
           <div className="mx-auto h-9 w-9 animate-spin rounded-full border-4 border-rose-100 border-t-rose-700" />
 
-          <p className="mt-4 text-sm text-slate-500">Cargando servicio...</p>
+          <p className="mt-4 text-sm text-slate-500">Cargando promoción...</p>
         </div>
       </section>
     );

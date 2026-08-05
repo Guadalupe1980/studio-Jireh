@@ -209,9 +209,11 @@ function UpdateServicio() {
   if (loading) {
     return (
       <section className="flex min-h-screen items-center justify-center bg-[#fbfaf8]">
-        <p className="text-sm text-slate-500">
-          Cargando información del servicio...
-        </p>
+        <div className="text-center">
+          <div className="mx-auto h-9 w-9 animate-spin rounded-full border-4 border-rose-100 border-t-rose-700" />
+
+          <p className="mt-4 text-sm text-slate-500">Cargando Promoción...</p>
+        </div>
       </section>
     );
   }

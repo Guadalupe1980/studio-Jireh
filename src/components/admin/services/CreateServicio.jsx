@@ -145,6 +145,18 @@ function CreateServicio() {
     navigate("/admin/services");
   }
 
+  if (loading) {
+    return (
+      <section className="flex min-h-screen items-center justify-center bg-[#fbfaf8]">
+        <div className="text-center">
+          <div className="mx-auto h-9 w-9 animate-spin rounded-full border-4 border-rose-100 border-t-rose-700" />
+
+          <p className="mt-4 text-sm text-slate-500">Guardando servicio...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="min-h-screen bg-[#fbfaf8] px-5 py-10">
       <div className="mx-auto max-w-3xl">

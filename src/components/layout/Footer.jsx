@@ -103,10 +103,8 @@ function Footer() {
                 </h3>
 
                 <p className="mt-2 text-sm leading-6 text-gray-600">
-                  Lunes a viernes: 9:00 a 18:00
+                  Lunes a Sábado: 9:00 a 18:00
                   <br />
-                  Sábado: 9:00 a 18:00
-                   <br />
                   Domingo: Cerrado
                 </p>
               </div>
