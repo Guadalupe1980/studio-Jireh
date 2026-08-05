@@ -42,7 +42,7 @@ function ReadPromotion() {
         .from("promotions")
         .select(
           `
-                id,
+        id,
         title,
         description,
         old_price,
