@@ -106,6 +106,8 @@ function Footer() {
                   Lunes a viernes: 9:00 a 18:00
                   <br />
                   Sábado: 9:00 a 18:00
+                   <br />
+                  Domingo: Cerrado
                 </p>
               </div>
             </div>

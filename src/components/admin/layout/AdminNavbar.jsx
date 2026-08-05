@@ -5,31 +5,30 @@ import { useContext } from "react";
 
 function AdminNavbar() {
   const navigate = useNavigate();
-  const { logout } = useContext(AuthContext)
+  const { logout } = useContext(AuthContext);
 
   const [Openmenu, setOpenmenu] = useState(false); //Estado del menu
-  const [loggingOut, setLoggingOut] = useState(false)
+  const [loggingOut, setLoggingOut] = useState(false);
 
   async function handleLogout() {
-    setLoggingOut(true)
+    setLoggingOut(true);
 
     try {
       //cerramos la sesion en supabase
       await logout();
 
       //cerramos el menu movil
-      setOpenmenu(false)
+      setOpenmenu(false);
 
       //mandamos el usuario al login
-      navigate("/login", {replace: true});
+      navigate("/login", { replace: true });
     } catch (error) {
       console.error("Error al cerrar sesion:", error);
-      setLoggingOut(false)
+      setLoggingOut(false);
     }
-    
   }
 
-  function closeMenu(){
+  function closeMenu() {
     setOpenmenu(false);
   }
 
@@ -86,18 +85,11 @@ function AdminNavbar() {
         </Link>
         <Link
           to={""}
-          onClick={closeMenu}
-          className="hover:scale-110 duration-300 md:hover:text-rose-700"
-        >
-          Configuración
-        </Link>
-        <Link
-          to={""}
           onClick={handleLogout}
           disabled={loggingOut}
           className="hover:scale-110 duration-300 md:hover:text-rose-700"
         >
-         {loggingOut ? "Cerrando sesión..." : "Cerrar sesión" }
+          {loggingOut ? "Cerrando sesión..." : "Cerrar sesión"}
         </Link>
       </nav>
     </header>
