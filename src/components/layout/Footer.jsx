@@ -1,8 +1,4 @@
-import { useNavigate } from "react-router-dom";
-
 function Footer() {
-  const navigate = useNavigate(); //para navegar al login
-
   // Dirección que se muestra como texto en el footer
   const address =
     "TAB / Jalpa de Méndez 138, El Río, 86203 Jalpa de Méndez, Tabasco";
@@ -144,16 +140,7 @@ function Footer() {
       {/* Derechos reservados */}
       <div className="border-t border-gray-200 px-5 py-6 text-center">
         <p className="text-[10px] uppercase tracking-[0.3em] text-gray-500">
-          © 2026{" "}
-          <button
-            type="button"
-            onClick={() => navigate("/login")}
-            className="cursor-default uppercase tracking-[0.3em] text-gray-500"
-            aria-label="Abrir inicio de sesión"
-          >
-            Estudio Jireh
-          </button>
-          . Todos los derechos reservados.
+          © 2026 Estudio Jireh . Todos los derechos reservados.
         </p>
       </div>
     </footer>
