@@ -5,6 +5,7 @@ function CortesPeinados() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectImg, setSelectImg] = useState(null);
 
   useEffect(() => {
     async function getServices() {
@@ -124,9 +125,24 @@ function CortesPeinados() {
                   <img
                     src={service.image_url}
                     alt={`Servicio de ${service.name}`}
-                    className="h-full w-full object-cover transition duration-500 hover:scale-110"
+                    onClick={() => setSelectImg(service.image_url)}
+                    className="h-full w-full object-cover transition duration-500 hover:scale-110 active:scale-105 cursor-pointer"
                   />
                 </div>
+
+                {/* Imagen amplia en mobil */}
+                {selectImg && (
+                  <div
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+                    onClick={() => setSelectImg(null)}
+                  >
+                    <img
+                      src={selectImg}
+                      alt="imagen amplia"
+                      className="max-h-[90vh] max-w-full object-contain"
+                    />
+                  </div>
+                )}
 
                 {/* Información */}
                 <div className="p-5">
