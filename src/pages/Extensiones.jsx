@@ -5,6 +5,7 @@ function Extensiones() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectImg, setSelectImg] = useState(null);
 
   useEffect(() => {
     async function getServices() {
@@ -124,7 +125,8 @@ function Extensiones() {
                   <img
                     src={service.image_url}
                     alt={`Servicio de ${service.name}`}
-                    className="h-full w-full object-cover transition duration-500 hover:scale-110"
+                    onClick={() => setSelectImg(service.image_url)}
+                    className="h-full w-full object-cover transition duration-500 hover:scale-110 active:scale-105 cursor-pointer"
                   />
                 </div>
 
@@ -167,6 +169,20 @@ function Extensiones() {
                 </div>
               </article>
             ))}
+          </div>
+        )}
+
+        {/*Imagen amplia en mobile */}
+        {selectImg && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            onClick={() => setSelectImg(null)}
+          >
+            <img
+              src={selectImg}
+              alt="Imagen Amplia"
+              className="max-h-[90vh] max-w-full object-contain"
+            />
           </div>
         )}
       </div>
