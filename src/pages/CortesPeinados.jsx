@@ -130,20 +130,6 @@ function CortesPeinados() {
                   />
                 </div>
 
-                {/* Imagen amplia en mobil */}
-                {selectImg && (
-                  <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
-                    onClick={() => setSelectImg(null)}
-                  >
-                    <img
-                      src={selectImg}
-                      alt="imagen amplia"
-                      className="max-h-[90vh] max-w-full object-contain"
-                    />
-                  </div>
-                )}
-
                 {/* Información */}
                 <div className="p-5">
                   {/* Nombre */}
@@ -183,6 +169,19 @@ function CortesPeinados() {
                 </div>
               </article>
             ))}
+          </div>
+        )}
+        {/* Imagen amplia en mobil */}
+        {selectImg && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4"
+            onClick={() => setSelectImg(null)}
+          >
+            <img
+              src={selectImg}
+              alt="imagen amplia"
+              className="max-h-[90vh] max-w-full object-contain"
+            />
           </div>
         )}
       </div>
